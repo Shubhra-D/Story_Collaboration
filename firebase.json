@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "social-media-project-acf57-64aa2",
     "public": "dist",
     "ignore": [
       "firebase.json",
