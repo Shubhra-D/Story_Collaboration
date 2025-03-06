@@ -1,18 +1,23 @@
-import { Box ,Input,Button,Flex,Heading} from '@chakra-ui/react'
+import { Box ,Input,Button,Flex,Heading,Text} from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { signInWithPopup,createUserWithEmailAndPassword } from 'firebase/auth';
-import {provider} from '../Firebase/firebaseconfig'
+import { signInWithPopup,createUserWithEmailAndPassword ,updateProfile} from 'firebase/auth';
+import {provider,auth} from '../Firebase/firebaseconfig'
 import { FcGoogle } from 'react-icons/fc';
 
 const SignUp = () => {
+  const [userName,setUserName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [error,setError] = useState(null);
-   //signup using email and password 
+   
+  //signup using email and password 
   const handleSignUp = async()=>{
     try{
-      await createUserWithEmailAndPassword(auth,email,password);
-      alert(`${user.displayName} Signed Up Successfully`)
+      const userCredential =  await createUserWithEmailAndPassword(auth,email,password);
+      await updateProfile(userCredential.user,{displayName:userName})
+      alert(`${userName} Signed Up Successfully`)
+      localStorage.setItem("UserName",userName)
+       window.location.reload();
     }catch(err){
         setError(err.message)
     }
@@ -33,6 +38,13 @@ const SignUp = () => {
       </Heading>
       {error && <Text color={"red.500"}>{error}</Text>}
       <Box  display={"flex"} p={5} gap="3" flexDirection={"column"} alignItems={"center"}>
+      <Input
+        placeholder="Enter Name"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        bg={"whiteAlpha.900"}
+        border={"none"}
+      />
       <Input
         placeholder="Enter Email"
         value={email}

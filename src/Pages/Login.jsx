@@ -2,6 +2,7 @@ import { auth, provider } from "../Firebase/firebaseconfig";
 import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { signInWithEmailAndPassword,signInWithPopup } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
