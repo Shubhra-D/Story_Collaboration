@@ -56,7 +56,7 @@ const Navbar = () => {
           // If user is logged in, show username and logout button
           <>
             <Text color="white" fontSize="lg" fontWeight="bold" display="inline">
-              Welcome, {user || "User"}!
+              Welcome 🙏, {user || "User"}!
             </Text>
             <Button
               m={2}
